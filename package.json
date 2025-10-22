@@ -1,0 +1,15 @@
+{
+  "name": "fullstack-todo-assessment",
+  "version": "1.0.0",
+  "description": "A full-stack Dockerized to-do app with REST API, PostgreSQL, and a React SPA frontend.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Charaka Jith Gunasinghe",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
