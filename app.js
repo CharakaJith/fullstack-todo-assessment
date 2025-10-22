@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
 const { CORS } = require('./common/messages');
 
@@ -26,6 +27,9 @@ app.use(
     exposedHeaders: ['Access-Token'],
   })
 );
+
+// global custom error handler
+app.use(errorHandler);
 
 // start the server
 app.listen(PORT, () => {
