@@ -25,7 +25,7 @@ app.use(
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Access-Token'],
-  })
+  }),
 );
 
 // global custom error handler
