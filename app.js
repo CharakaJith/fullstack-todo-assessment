@@ -8,6 +8,10 @@ const { CORS } = require('./common/messages');
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = process.env.PORT || 3000;
 
+// import routing paths
+const routesV1 = require('./routes/v1/index');
+const routesV2 = require('./routes/v2/index');
+
 // initialize the express app
 const app = express();
 app.use(express.json({ limit: '10kb' }));
@@ -34,6 +38,10 @@ const initialization = async () => {
   await initialize();
 };
 initialization();
+
+// setup routing paths
+app.use('/api/v1', routesV1);
+app.use('/api/v2', routesV2);
 
 // global custom error handler
 app.use(errorHandler);
