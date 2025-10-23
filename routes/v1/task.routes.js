@@ -3,6 +3,6 @@ const taskController = require('../../controllers/v1/task.controller');
 
 const taskRouter = express.Router();
 
-// taskRouter.post('/', );
+taskRouter.post('/', taskController.create);
 
 module.exports = taskRouter;

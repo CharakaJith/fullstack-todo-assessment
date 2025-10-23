@@ -12,11 +12,18 @@ module.exports = {
     },
   },
 
-  // field validation messages
+  // field validation
   VALIDATE: {
     PARAM: {
       EMPTY: (field) => `The '${field}' field is required.`,
       INVALID: (field) => `Invalid format for '${field}'.`,
+    },
+  },
+
+  // repository layer errors
+  REPO: {
+    FAILED: {
+      INSERT: (entity, error) => `Failed to create ${entity}: ${error.message}`,
     },
   },
 };
