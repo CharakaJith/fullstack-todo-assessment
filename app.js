@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const initialize = require('./database/initialze');
 const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
 const { CORS } = require('./common/messages');
@@ -27,6 +28,12 @@ app.use(
     exposedHeaders: ['Access-Token'],
   }),
 );
+
+// initialize database
+const initialization = async () => {
+  await initialize();
+};
+initialization();
 
 // global custom error handler
 app.use(errorHandler);
