@@ -1,3 +1,4 @@
+const taskRepo = require('../../repos/v1/task.repo');
 const taskService = require('../../services/v1/task.service');
 
 const taskController = {
@@ -30,6 +31,25 @@ const taskController = {
         response: {
           status: status,
           data: data,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  update: async (req, res, next) => {
+    try {
+      const taskData = ({ id, title, description, isCompleted } = req.body);
+
+      const response = await taskService.updateTask(taskData);
+      const { success, status, data } = response;
+
+      res.status(status).json({
+        success: success,
+        response: {
+          status: status,
+          data: data ? data : '',
         },
       });
     } catch (error) {

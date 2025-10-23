@@ -24,6 +24,7 @@ module.exports = {
   RESPONSE: {
     TASK: {
       NOT_FOUND: 'Invalid task ID',
+      UPDATE_FAILED: 'Failed to update the task',
     },
   },
 

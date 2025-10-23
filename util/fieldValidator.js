@@ -22,6 +22,17 @@ const fieldValidator = {
 
     return 1;
   },
+
+  validate_boolean: async (value, param) => {
+    if (typeof value !== 'boolean') {
+      return {
+        fields: param,
+        message: VALIDATE.PARAM.INVALID(param),
+      };
+    }
+
+    return 1;
+  },
 };
 
 module.exports = fieldValidator;
