@@ -7,6 +7,7 @@ describe('Messages', () => {
 
   it('should return correct DATABASE messages', () => {
     const error = new Error('DB error');
+
     expect(MESSAGES.DATABASE.SYNC.SUCCESS).toBe('Database synced successfully.');
     expect(MESSAGES.DATABASE.SYNC.FAILED(error)).toBe('Failed to sync database: DB error');
   });
@@ -23,6 +24,7 @@ describe('Messages', () => {
 
   it('should return correct REPO error messages', () => {
     const error = new Error('some error');
+
     expect(MESSAGES.REPO.FAILED.INSERT('Task', error)).toBe('Failed to create Task: some error');
     expect(MESSAGES.REPO.FAILED.GET.All('Task', error)).toBe('Failed to get all Task: some error');
     expect(MESSAGES.REPO.FAILED.GET.BY_ID('Task', error)).toBe('Failed to retrieve Task by ID: some error');
