@@ -1,5 +1,5 @@
 const logger = require('./log/logger');
-const { APP_ENV, STATUS_CODE } = require('../constants/logger.constants');
+const { APP_ENV, STATUS_CODE } = require('../constants/app.constants');
 
 const errorHandler = (err, req, res, next) => {
   const { status, statusCode, message, stack } = err;
