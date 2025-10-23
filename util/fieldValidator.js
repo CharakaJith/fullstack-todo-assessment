@@ -11,6 +11,17 @@ const fieldValidator = {
 
     return 1;
   },
+
+  validate_number: async (value, param) => {
+    if (isNaN(value) || isNaN(parseFloat(value))) {
+      return {
+        fields: param,
+        message: VALIDATE.PARAM.EMPTY(param),
+      };
+    }
+
+    return 1;
+  },
 };
 
 module.exports = fieldValidator;

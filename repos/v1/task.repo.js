@@ -12,6 +12,39 @@ const taskRepo = {
       throw new CustomError(REPO.FAILED.INSERT(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
     }
   },
+
+  getById: async (taskId) => {
+    try {
+      return await models.Task.findOne({
+        where: {
+          id: taskId,
+          isArchived: false,
+        },
+      });
+    } catch (error) {
+      throw new CustomError(REPO.FAILED.GET.BY_ID(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
+    }
+  },
+
+  update: async (task) => {
+    try {
+      return await models.Task.update(
+        {
+          title: task.title,
+          description: task.description,
+          isCompleted: task.isCompleted,
+          isArchived: task.isArchived,
+        },
+        {
+          where: {
+            id: task.id,
+          },
+        },
+      );
+    } catch (error) {
+      throw new CustomError(REPO.FAILED.UPDATE(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
+    }
+  },
 };
 
 module.exports = taskRepo;
