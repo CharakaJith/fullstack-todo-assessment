@@ -1,6 +1,6 @@
 const MESSAGES = require('../../common/messages');
 
-describe('Messages & Constants', () => {
+describe('Messages', () => {
   it('should return correct CORS message', () => {
     expect(MESSAGES.CORS.INVALID).toBe('Not allowed by CORS!');
   });
