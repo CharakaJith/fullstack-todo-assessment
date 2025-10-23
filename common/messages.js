@@ -32,6 +32,7 @@ module.exports = {
     FAILED: {
       INSERT: (entity, error) => `Failed to create ${entity}: ${error.message}`,
       GET: {
+        All: (entity, error) => `Failed to get all ${entity}: ${error.message}`,
         BY_ID: (entity, error) => `Failed to retrieve ${entity} by ID: ${error.message}`,
       },
       UPDATE: (entity, error) => `Failed to update ${entity}: ${error.message}`,

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // TODO: use this if creating a user table
+        // TODO (ENHANCEMENT): use this if creating a user table
         // references: { model: 'Users', key: 'id' },
         // onDelete: 'CASCADE',
       },

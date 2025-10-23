@@ -1,6 +1,23 @@
 const taskService = require('../../services/v1/task.service');
 
 const taskController = {
+  getAll: async (req, res, next) => {
+    try {
+      const response = await taskService.getAllTasks();
+      const { success, status, data } = response;
+
+      res.status(status).json({
+        success: success,
+        response: {
+          status: status,
+          data: data,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   create: async (req, res, next) => {
     try {
       const taskData = ({ title, description } = req.body);

@@ -5,11 +5,16 @@ const { STATUS_CODE } = require('../../constants/app.constants');
 const { ENTITY } = require('../../constants/entity.constants');
 
 const taskRepo = {
-  insert: async (task) => {
+  getAllActive: async () => {
     try {
-      return await models.Task.create(task);
+      return await models.Task.findAll({
+        where: {
+          isArchived: false,
+        },
+        order: [['createdAt', 'DESC']],
+      });
     } catch (error) {
-      throw new CustomError(REPO.FAILED.INSERT(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
+      throw new CustomError(REPO.FAILED.GET.All(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
     }
   },
 
@@ -23,6 +28,14 @@ const taskRepo = {
       });
     } catch (error) {
       throw new CustomError(REPO.FAILED.GET.BY_ID(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
+    }
+  },
+
+  insert: async (task) => {
+    try {
+      return await models.Task.create(task);
+    } catch (error) {
+      throw new CustomError(REPO.FAILED.INSERT(ENTITY.TASK, error), STATUS_CODE.SERVER_ERROR);
     }
   },
 

@@ -8,6 +8,18 @@ const { STATUS_CODE } = require('../../constants/app.constants');
 const { RESPONSE } = require('../../common/messages');
 
 const taskService = {
+  getAllTasks: async () => {
+    const tasks = await taskRepo.getAllActive();
+
+    return {
+      success: true,
+      status: STATUS_CODE.OK,
+      data: {
+        tasks: tasks,
+      },
+    };
+  },
+
   createNewTask: async (data) => {
     const { title, description } = data;
 
@@ -30,7 +42,7 @@ const taskService = {
 
     // create new task
     const taskData = {
-      userId: 1, // TODO: must be updated with request user
+      userId: 1, // TODO (ENHANCEMENT): must be updated with request user
       title: title,
       description: description,
     };
@@ -68,7 +80,7 @@ const taskService = {
       throw new CustomError(RESPONSE.TASK.NOT_FOUND, STATUS_CODE.NOT_FOUND);
     }
 
-    // TODO: check task belongs to request user before deleting
+    // TODO (ENHANCEMENT): check task belongs to request user before deleting
 
     // archive task
     task.isArchived = true;
