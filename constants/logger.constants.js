@@ -4,5 +4,6 @@ module.exports = {
     DEBUG: 'debug',
     FAIL: 'fail',
     ERROR: 'error',
+    UNKNOWN: 'unknown',
   }),
 };
