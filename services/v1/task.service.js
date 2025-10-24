@@ -89,7 +89,7 @@ const taskService = {
 
     // update task
     task.title = title;
-    task.description = title;
+    task.description = description;
     task.isCompleted = !task.isCompleted ? isCompleted : true; // only allowed to changed if not completed
     var updatedTask = await taskRepo.update(task);
 

@@ -23,7 +23,7 @@ describe('Task Repo', () => {
 
     mockTaskData = {
       id: 1,
-      userId: 10,
+      userId: 1,
       title: 'Test Task',
       description: 'Testing task repo',
       isCompleted: false,
