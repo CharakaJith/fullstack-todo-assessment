@@ -61,7 +61,7 @@ const CreateTaskForm: React.FC = () => {
       try {
         const res = await api.post('/api/v1/task', taskData);
         if (res.data.success) {
-          navigate('/a');
+          window.location.reload();
         }
       } catch (error: any) {
         const responseData = error.response?.data?.response?.data;
