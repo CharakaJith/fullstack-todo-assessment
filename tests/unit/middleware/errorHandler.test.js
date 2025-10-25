@@ -1,8 +1,8 @@
-const errorHandler = require('../../middleware/errorHandler');
-const logger = require('../../middleware/log/logger');
-const { APP_ENV, STATUS_CODE } = require('../../constants/app.constants');
+const errorHandler = require('../../../middleware/errorHandler');
+const logger = require('../../../middleware/log/logger');
+const { APP_ENV, STATUS_CODE } = require('../../../constants/app.constants');
 
-jest.mock('../../middleware/log/logger', () => jest.fn());
+jest.mock('../../../middleware/log/logger', () => jest.fn());
 
 describe('Global Error Handler', () => {
   let mockReq, mockRes, mockNext;

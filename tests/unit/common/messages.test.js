@@ -1,4 +1,4 @@
-const MESSAGES = require('../../common/messages');
+const MESSAGES = require('../../../common/messages');
 
 describe('Messages', () => {
   it('should return correct CORS message', () => {

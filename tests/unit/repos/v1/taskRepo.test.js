@@ -1,12 +1,12 @@
-const models = require('../../models');
-const taskRepo = require('../../repos/v1/task.repo');
-const CustomError = require('../../util/customError');
-const { STATUS_CODE } = require('../../constants/app.constants');
-const { ENTITY } = require('../../constants/entity.constants');
-const { REPO } = require('../../common/messages');
+const models = require('../../../../models');
+const taskRepo = require('../../../../repos/v1/task.repo');
+const CustomError = require('../../../../util/customError');
+const { STATUS_CODE } = require('../../../../constants/app.constants');
+const { ENTITY } = require('../../../../constants/entity.constants');
+const { REPO } = require('../../../../common/messages');
 
 // mock task model actions
-jest.mock('../../models', () => ({
+jest.mock('../../../../models', () => ({
   Task: {
     findAll: jest.fn(),
     findOne: jest.fn(),

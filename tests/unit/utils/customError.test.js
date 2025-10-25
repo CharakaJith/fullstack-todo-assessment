@@ -1,5 +1,5 @@
-const CustomError = require('../../util/customError');
-const { LOG_TYPE } = require('../../constants/logger.constants');
+const CustomError = require('../../../util/customError');
+const { LOG_TYPE } = require('../../../constants/logger.constants');
 
 describe('CustomError Module', () => {
   it('should create a FAIL error for 4xx status codes', () => {

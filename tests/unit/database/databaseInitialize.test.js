@@ -1,9 +1,9 @@
-const initialize = require('../../database/initialze');
-const sequelize = require('../../database/database');
-const { APP_ENV, STATUS_CODE } = require('../../constants/app.constants');
-const { DATABASE } = require('../../common/messages');
+const initialize = require('../../../database/initialze');
+const sequelize = require('../../../database/database');
+const { APP_ENV, STATUS_CODE } = require('../../../constants/app.constants');
+const { DATABASE } = require('../../../common/messages');
 
-jest.mock('../../database/database', () => ({
+jest.mock('../../../database/database', () => ({
   sync: jest.fn(),
 }));
 

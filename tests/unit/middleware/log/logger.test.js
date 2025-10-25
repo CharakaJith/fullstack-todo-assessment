@@ -1,8 +1,8 @@
-const logger = require('../../middleware/log/logger');
-const loggerIndex = require('../../middleware/log/index');
-const { LOG_TYPE } = require('../../constants/logger.constants');
+const logger = require('../../../../middleware/log/logger');
+const loggerIndex = require('../../../../middleware/log/index');
+const { LOG_TYPE } = require('../../../../constants/logger.constants');
 
-jest.mock('../../middleware/log/index', () => ({
+jest.mock('../../../../middleware/log/index', () => ({
   info: jest.fn(),
   debug: jest.fn(),
   error: jest.fn(),

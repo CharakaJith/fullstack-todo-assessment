@@ -1,5 +1,5 @@
-const fieldValidator = require('../../util/fieldValidator');
-const { VALIDATE } = require('../../common/messages');
+const fieldValidator = require('../../../util/fieldValidator');
+const { VALIDATE } = require('../../../common/messages');
 
 describe('Field Validator', () => {
   describe('validate_string', () => {

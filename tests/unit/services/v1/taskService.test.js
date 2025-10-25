@@ -1,17 +1,17 @@
-const taskService = require('../../services/v1/task.service');
-const taskRepo = require('../../repos/v1/task.repo');
-const fieldValidator = require('../../util/fieldValidator');
-const logger = require('../../middleware/log/logger');
+const taskService = require('../../../../services/v1/task.service');
+const taskRepo = require('../../../../repos/v1/task.repo');
+const fieldValidator = require('../../../../util/fieldValidator');
+const logger = require('../../../../middleware/log/logger');
 
-const { STATUS_CODE } = require('../../constants/app.constants');
-const { LOG_TYPE } = require('../../constants/logger.constants');
+const { STATUS_CODE } = require('../../../../constants/app.constants');
+const { LOG_TYPE } = require('../../../../constants/logger.constants');
 
 // mock dependencies
-jest.mock('../../repos/v1/task.repo');
-jest.mock('../../middleware/log/logger');
+jest.mock('../../../../repos/v1/task.repo');
+jest.mock('../../../../middleware/log/logger');
 
 // mock CustomError
-jest.mock('../../util/customError', () => {
+jest.mock('../../../../util/customError', () => {
   const MockCustomError = function (message, statusCode) {
     this.message = message;
     this.statusCode = statusCode;

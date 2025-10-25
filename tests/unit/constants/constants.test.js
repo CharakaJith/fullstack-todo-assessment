@@ -1,6 +1,6 @@
-const { APP_ENV, STATUS_CODE, CONNECTION } = require('../../constants/app.constants');
-const { ENTITY } = require('../../constants/entity.constants');
-const { LOG_TYPE } = require('../../constants/logger.constants');
+const { APP_ENV, STATUS_CODE, CONNECTION } = require('../../../constants/app.constants');
+const { ENTITY } = require('../../../constants/entity.constants');
+const { LOG_TYPE } = require('../../../constants/logger.constants');
 
 describe('All Constants', () => {
   it('should have correct environment values', () => {
