@@ -50,6 +50,7 @@ describe('taskService', () => {
 
   // getAllTasks
   describe('getAllTasks', () => {
+    // return an array of tasks
     it('should return all active tasks with success', async () => {
       const mockTasks = [mockTaskData, mockTaskData];
       taskRepo.getAllActive.mockResolvedValue(mockTasks);
@@ -64,6 +65,7 @@ describe('taskService', () => {
       });
     });
 
+    // returns an empty array if there are no tasks
     it('should handle empty task list', async () => {
       taskRepo.getAllActive.mockResolvedValue([]);
 
@@ -80,6 +82,7 @@ describe('taskService', () => {
 
   // createNewTask
   describe('createNewTask', () => {
+    // validate request body
     it('should return BAD_REQUEST if validation fails', async () => {
       // invalid title, valid description
       fieldValidator.validate_string.mockResolvedValueOnce('Invalid title').mockResolvedValueOnce(1);
@@ -96,6 +99,7 @@ describe('taskService', () => {
       });
     });
 
+    // create new task
     it('should create a new task if validation passes', async () => {
       const newTask = { id: 1, userId: 1, title: 'Task', description: 'Desc' };
       fieldValidator.validate_string.mockResolvedValue(1);
@@ -120,6 +124,7 @@ describe('taskService', () => {
 
   // update task
   describe('updateTask', () => {
+    // validate request body
     it('should return BAD_REQUEST if validation fails', async () => {
       fieldValidator.validate_number.mockResolvedValueOnce('Invalid id');
       fieldValidator.validate_string.mockResolvedValue(1);
@@ -137,6 +142,7 @@ describe('taskService', () => {
       });
     });
 
+    // if task not found
     it('should throw CustomError if task not found', async () => {
       fieldValidator.validate_number.mockResolvedValue(1);
       fieldValidator.validate_string.mockResolvedValue(1);
@@ -158,6 +164,7 @@ describe('taskService', () => {
       }
     });
 
+    // if update fails
     it('should throw CustomError if update fails', async () => {
       const existingTask = { id: 1, title: 'Old', description: 'Old', isCompleted: false };
 
@@ -182,6 +189,7 @@ describe('taskService', () => {
       }
     });
 
+    // update a task successfully
     it('should update task successfully when task is not completed', async () => {
       const existingTask = { id: 1, title: 'Old', description: 'Old', isCompleted: false };
       const updatedTask = { id: 1, title: 'New', description: 'New', isCompleted: true };
@@ -213,6 +221,7 @@ describe('taskService', () => {
       });
     });
 
+    // block changing status of already completed task
     it('should keep task completed when updating an already completed task', async () => {
       const existingTask = { id: 1, title: 'Old', description: 'Old', isCompleted: true };
       const updatedTask = { id: 1, title: 'New', description: 'New', isCompleted: true };
@@ -244,7 +253,7 @@ describe('taskService', () => {
       });
     });
 
-    // edge case - task is not completed and we set isCompleted to false
+    // edge case - task is not completed and status is set to false
     it('should update task with false completion status when task is not completed', async () => {
       const existingTask = { id: 1, title: 'Old', description: 'Old', isCompleted: false };
       const updatedTask = { id: 1, title: 'New', description: 'New', isCompleted: false };
@@ -279,6 +288,7 @@ describe('taskService', () => {
 
   // archive/delete task
   describe('archiveTask', () => {
+    // validate request body
     it('should return BAD_REQUEST when validation fails', async () => {
       fieldValidator.validate_number.mockResolvedValue('invalid id');
 
@@ -293,6 +303,7 @@ describe('taskService', () => {
       });
     });
 
+    // if task not found
     it('should throw CustomError when task not found', async () => {
       fieldValidator.validate_number.mockResolvedValue(1);
       taskRepo.getById.mockResolvedValue(null);
@@ -308,6 +319,7 @@ describe('taskService', () => {
       expect(taskRepo.getById).toHaveBeenCalledWith(1);
     });
 
+    // successfully archive a task
     it('should successfully archive a task', async () => {
       fieldValidator.validate_number.mockResolvedValue(1);
       const mockTask = { id: 1, title: 'Test Task', isArchived: false };

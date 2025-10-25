@@ -2,7 +2,9 @@ const { APP_ENV, STATUS_CODE, CONNECTION } = require('../../../constants/app.con
 const { ENTITY } = require('../../../constants/entity.constants');
 const { LOG_TYPE } = require('../../../constants/logger.constants');
 
-describe('All Constants', () => {
+// app.constnats
+describe('App Constants', () => {
+  // app environments
   it('should have correct environment values', () => {
     expect(APP_ENV.DEV).toBe('development');
     expect(APP_ENV.QA).toBe('qa');
@@ -10,6 +12,7 @@ describe('All Constants', () => {
     expect(APP_ENV.PROD).toBe('production');
   });
 
+  // status codes
   it('should have correct status codes', () => {
     expect(STATUS_CODE.OK).toBe(200);
     expect(STATUS_CODE.CREATED).toBe(201);
@@ -26,6 +29,7 @@ describe('All Constants', () => {
     expect(STATUS_CODE.TIME_OUT).toBe(504);
   });
 
+  // connection errors
   it('should have correct connection error codes', () => {
     expect(CONNECTION.ABORT).toBe('ECONNABORTED');
     expect(CONNECTION.NOTFOUND).toBe('ENOTFOUND');
@@ -33,14 +37,18 @@ describe('All Constants', () => {
   });
 });
 
+// entity.constants
 describe('Entity Constants', () => {
+  // current database tables
   it('should have correct entity names', () => {
     expect(ENTITY.USER).toBe('Users');
     expect(ENTITY.TASK).toBe('Tasks');
   });
 });
 
+// logger.contants
 describe('Logger Constants', () => {
+  // winston log levels
   it('should have correct log types', () => {
     expect(LOG_TYPE.INFO).toBe('info');
     expect(LOG_TYPE.DEBUG).toBe('debug');

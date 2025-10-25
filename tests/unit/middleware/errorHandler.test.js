@@ -17,6 +17,7 @@ describe('Global Error Handler', () => {
     process.env.NODE_ENV = APP_ENV.DEV;
   });
 
+  // provide stack in dev environment
   it('should log error and send proper response with stack in development env', () => {
     const error = {
       status: 'error',
@@ -38,6 +39,7 @@ describe('Global Error Handler', () => {
     });
   });
 
+  // hide stack in qa/staging/production environments
   it('should hide stack trace in production env', () => {
     process.env.NODE_ENV = APP_ENV.PROD;
 
@@ -60,6 +62,7 @@ describe('Global Error Handler', () => {
     });
   });
 
+  // set status code to 500 if not provided
   it('should default to 500 if no statusCode is provided', () => {
     const error = { message: 'Something broke' };
     errorHandler(error, mockReq, mockRes, mockNext);

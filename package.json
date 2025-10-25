@@ -8,7 +8,7 @@
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:down": "npx sequelize-cli db:migrate:undo",
     "migrate:down:all": "npx sequelize-cli db:migrate:undo:all",
-    "test": "jest --coverage"
+    "test:unit": "jest --config jest.config.js"
   },
   "author": "Charaka Jith Gunasinghe",
   "license": "ISC",

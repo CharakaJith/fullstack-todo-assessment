@@ -22,6 +22,7 @@ describe('Logger Utility', () => {
     jest.clearAllMocks();
   });
 
+  // log type: info
   it('should call loggerIndex.info for INFO log type', () => {
     logger(LOG_TYPE.INFO, true, 200, 'Operation successful', mockReq);
 
@@ -30,24 +31,28 @@ describe('Logger Utility', () => {
     expect(loggerIndex.error).not.toHaveBeenCalled();
   });
 
+  // log type: debug
   it('should call loggerIndex.debug for DEBUG log type', () => {
     logger(LOG_TYPE.DEBUG, true, 200, 'Debug log', mockReq);
 
     expect(loggerIndex.debug).toHaveBeenCalled();
   });
 
+  // log type: error
   it('should call loggerIndex.error for ERROR log type', () => {
     logger(LOG_TYPE.ERROR, false, 500, 'Server crash', mockReq);
 
     expect(loggerIndex.error).toHaveBeenCalled();
   });
 
+  // log type: unknown
   it('should default to loggerIndex.error for unknown log types', () => {
     logger(LOG_TYPE.UNKNOWN, false, 500, 'Unknown log type', mockReq);
 
     expect(loggerIndex.error).toHaveBeenCalled();
   });
 
+  // stack trace on dev environments
   it('should include stack trace if provided', () => {
     logger(LOG_TYPE.ERROR, false, 500, 'Error occurred', mockReq, 'stack trace');
 
@@ -55,6 +60,7 @@ describe('Logger Utility', () => {
     expect(JSON.stringify(logCall)).toContain('stack trace');
   });
 
+  // when no req is provided
   it('should handle missing request safely', () => {
     logger(LOG_TYPE.INFO, true, 200, 'No request object');
 

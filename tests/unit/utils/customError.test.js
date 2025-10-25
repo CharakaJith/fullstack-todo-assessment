@@ -2,6 +2,7 @@ const CustomError = require('../../../util/customError');
 const { LOG_TYPE } = require('../../../constants/logger.constants');
 
 describe('CustomError Module', () => {
+  // log type: fail
   it('should create a FAIL error for 4xx status codes', () => {
     const err = new CustomError('Bad request', 400);
 
@@ -13,6 +14,7 @@ describe('CustomError Module', () => {
     expect(err.stack).toBeDefined();
   });
 
+  // log type: error
   it('should create an ERROR for 5xx status codes', () => {
     const err = new CustomError('Server error', 500);
 
@@ -21,6 +23,7 @@ describe('CustomError Module', () => {
     expect(err.status).toBe(LOG_TYPE.ERROR);
   });
 
+  // log type: not specified
   it('should handle non-4xx/5xx codes as ERROR', () => {
     const err = new CustomError('Other code', 300);
 

@@ -35,6 +35,7 @@ describe('Task Repo', () => {
 
   // GET ALL
   describe('getAllActive', () => {
+    // fetched all active tasks successfully
     it('should return active tasks', async () => {
       const findAllMock = jest.fn().mockResolvedValue([mockTaskData]);
       models.Task = { findAll: findAllMock };
@@ -47,6 +48,7 @@ describe('Task Repo', () => {
       expect(result).toEqual([mockTaskData]);
     });
 
+    // error on database level
     it('should throw CustomError on failure', async () => {
       const error = new Error('DB error');
       models.Task = { findAll: jest.fn().mockRejectedValue(error) };
@@ -58,6 +60,7 @@ describe('Task Repo', () => {
 
   // GET BY ID
   describe('getById', () => {
+    // fetched active task by id successfully
     it('should return the task by id', async () => {
       const findOneMock = jest.fn().mockResolvedValue(mockTaskData);
       models.Task = { findOne: findOneMock };
@@ -69,6 +72,7 @@ describe('Task Repo', () => {
       expect(result).toEqual(mockTaskData);
     });
 
+    // error on database level
     it('should throw CustomError on failure', async () => {
       const error = new Error('Find error');
       models.Task = { findOne: jest.fn().mockRejectedValue(error) };
@@ -80,6 +84,7 @@ describe('Task Repo', () => {
 
   // INSERT
   describe('insert', () => {
+    // create a new task successfully
     it('should create a new task', async () => {
       const createMock = jest.fn().mockResolvedValue(mockTaskData);
       models.Task = { create: createMock };
@@ -89,6 +94,7 @@ describe('Task Repo', () => {
       expect(result).toEqual(mockTaskData);
     });
 
+    // error on database level
     it('should throw CustomError on failure', async () => {
       const error = new Error('Insert error');
       models.Task = { create: jest.fn().mockRejectedValue(error) };
@@ -100,8 +106,9 @@ describe('Task Repo', () => {
 
   // UPDATE
   describe('update', () => {
+    // update a task by id successfully
     it('should update the task', async () => {
-      const updateMock = jest.fn().mockResolvedValue([1]); // Sequelize returns [affectedCount]
+      const updateMock = jest.fn().mockResolvedValue([1]);
       models.Task = { update: updateMock };
 
       const result = await taskRepo.update(mockTaskData);
@@ -117,6 +124,7 @@ describe('Task Repo', () => {
       expect(result).toEqual([1]);
     });
 
+    // error on database level
     it('should throw CustomError on failure', async () => {
       const error = new Error('Update error');
       models.Task = { update: jest.fn().mockRejectedValue(error) };

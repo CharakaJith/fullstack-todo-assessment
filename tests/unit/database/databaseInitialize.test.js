@@ -12,6 +12,7 @@ describe('Database Initialization', () => {
     jest.resetAllMocks();
   });
 
+  // connection on dev environment
   it('should call sync with { force: true } in development env', async () => {
     process.env.NODE_ENV = APP_ENV.DEV;
     console.log = jest.fn();
@@ -24,6 +25,7 @@ describe('Database Initialization', () => {
     expect(console.log).toHaveBeenCalledWith(DATABASE.SYNC.SUCCESS);
   });
 
+  // connection on qa/stating/production environments
   it('should call sync with empty options in non-development env', async () => {
     process.env.NODE_ENV = 'test';
     console.log = jest.fn();
@@ -36,6 +38,7 @@ describe('Database Initialization', () => {
     expect(console.log).toHaveBeenCalledWith(DATABASE.SYNC.SUCCESS);
   });
 
+  // connection failed
   it('should log error when sync fails', async () => {
     process.env.NODE_ENV = APP_ENV.DEV;
     const error = new Error('fail');

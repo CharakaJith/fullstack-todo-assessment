@@ -1,10 +1,12 @@
 const MESSAGES = require('../../../common/messages');
 
 describe('Messages', () => {
+  // cors
   it('should return correct CORS message', () => {
     expect(MESSAGES.CORS.INVALID).toBe('Not allowed by CORS!');
   });
 
+  // database initialization
   it('should return correct DATABASE messages', () => {
     const error = new Error('DB error');
 
@@ -12,16 +14,19 @@ describe('Messages', () => {
     expect(MESSAGES.DATABASE.SYNC.FAILED(error)).toBe('Failed to sync database: DB error');
   });
 
+  // field validation
   it('should return correct validation messages', () => {
     expect(MESSAGES.VALIDATE.PARAM.EMPTY('title')).toBe("The 'title' field is required.");
     expect(MESSAGES.VALIDATE.PARAM.INVALID('title')).toBe("Invalid format for 'title'.");
   });
 
+  // response payload
   it('should return correct RESPONSE messages', () => {
     expect(MESSAGES.RESPONSE.TASK.NOT_FOUND).toBe('Invalid task ID');
     expect(MESSAGES.RESPONSE.TASK.UPDATE_FAILED).toBe('Failed to update the task');
   });
 
+  // repository layer errors
   it('should return correct REPO error messages', () => {
     const error = new Error('some error');
 

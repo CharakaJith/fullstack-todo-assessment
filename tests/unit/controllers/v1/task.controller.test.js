@@ -33,6 +33,7 @@ describe('Task Controller', () => {
 
   // GET: /api/v1/task
   describe('getAll', () => {
+    // return an array of tasks
     it('should return all tasks successfully', async () => {
       const mockResponse = {
         success: true,
@@ -56,6 +57,7 @@ describe('Task Controller', () => {
       expect(mockNext).not.toHaveBeenCalled();
     });
 
+    // service layer errors
     it('should handle service errors', async () => {
       const mockError = new Error('Service error');
       taskService.getAllTasks.mockRejectedValue(mockError);
@@ -70,6 +72,7 @@ describe('Task Controller', () => {
 
   // POST: /api/v1/task
   describe('create', () => {
+    // create a new task
     it('should create a new task successfully', async () => {
       const mockTaskData = { title: 'New Task', description: 'Task description' };
       const mockResponse = {
@@ -95,6 +98,7 @@ describe('Task Controller', () => {
       expect(mockNext).not.toHaveBeenCalled();
     });
 
+    // service layer errors
     it('should handle service errors during creation', async () => {
       const mockError = new Error('Creation failed');
       mockReq.body = { title: 'New Task', description: 'Description' };
@@ -110,6 +114,7 @@ describe('Task Controller', () => {
 
   // PUT: /api/v1/task
   describe('update', () => {
+    // update a task
     it('should update a task successfully', async () => {
       const mockTaskData = {
         id: 1,
@@ -140,6 +145,7 @@ describe('Task Controller', () => {
       expect(mockNext).not.toHaveBeenCalled();
     });
 
+    // update success (without data in body)
     it('should handle update with no data', async () => {
       const mockResponse = {
         success: true,
@@ -162,6 +168,7 @@ describe('Task Controller', () => {
       });
     });
 
+    // service layer errors
     it('should handle service errors during update', async () => {
       const mockError = new Error('Update failed');
       mockReq.body = { id: 1, title: 'Task', description: 'Desc', isCompleted: false };
@@ -177,6 +184,7 @@ describe('Task Controller', () => {
 
   // DELETE: /api/v1/task/:id
   describe('delete', () => {
+    // archive/delete success (without data in body)
     it('should archive a task successfully with no data property', async () => {
       const mockResponse = {
         success: true,
@@ -200,6 +208,7 @@ describe('Task Controller', () => {
       expect(mockNext).not.toHaveBeenCalled();
     });
 
+    // archive/delete success (with data in body)
     it('should archive a task successfully with data property', async () => {
       const mockResponse = {
         success: true,
@@ -222,6 +231,7 @@ describe('Task Controller', () => {
       });
     });
 
+    // validation error
     it('should handle validation errors from delete service', async () => {
       const mockResponse = {
         success: false,
@@ -245,6 +255,7 @@ describe('Task Controller', () => {
       });
     });
 
+    // service layer errors
     it('should handle service errors during deletion', async () => {
       const mockError = new Error('Deletion failed');
       mockReq.params = { id: '1' };
@@ -257,6 +268,7 @@ describe('Task Controller', () => {
       expect(mockRes.json).not.toHaveBeenCalled();
     });
 
+    // task not found
     it('should handle task not found error from service', async () => {
       const mockError = CustomError('Task not found', 404);
       mockReq.params = { id: '999' };
