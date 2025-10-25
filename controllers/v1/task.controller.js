@@ -1,4 +1,3 @@
-const taskRepo = require('../../repos/v1/task.repo');
 const taskService = require('../../services/v1/task.service');
 
 const taskController = {
