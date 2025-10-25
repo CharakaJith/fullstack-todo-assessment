@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import InfoPopup from '../popups/InfoPopup';
+import ErrorPopup from '../popups/ErrorPopup';
 import { Button } from '@/components/ui/button';
-import { INFO, TASK } from '@/common/messages';
+import { TASK } from '@/common/messages';
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -15,9 +16,34 @@ const AllTaskDisplay: React.FC = () => {
   const [tasks, setTasks] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [error, setError] = useState<string[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
+
+  // handle complete
+  const handleComplete = async (task: any) => {
+    try {
+      const taskData = {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        isCompleted: true,
+      };
+
+      const response = await api.put('/api/v1/task', taskData);
+      if (response.data.success) {
+        // update task in state
+        setTasks((prev) => prev.map((t) => (t.id === task.id ? { ...t, isCompleted: true } : t)));
+
+        openInfoPopup(TASK.COMPLETED);
+      }
+    } catch (error: any) {
+      console.log(error);
+
+      openErrorPopup(TASK.COMPLETE_FAILED);
+    }
+  };
 
   // handle delete button click
   const handleDelete = async (taskId: number) => {
@@ -31,8 +57,8 @@ const AllTaskDisplay: React.FC = () => {
         openInfoPopup(TASK.DELETED);
       }
     } catch (error: any) {
-      openInfoPopup(TASK.DELETE_FAILED);
-      setError([error.message || 'Failed to delete the task']);
+      openErrorPopup(TASK.DELETE_FAILED);
+      setError([error.message || TASK.DELETE_FAILED]);
     }
   };
 
@@ -64,6 +90,14 @@ const AllTaskDisplay: React.FC = () => {
     }, 10); // delay to updates the state
   };
 
+  // open error popup
+  const openErrorPopup = (message: string) => {
+    setErrorMessage(null);
+    setTimeout(() => {
+      setErrorMessage(message);
+    }, 10); // delay to updates the state
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -90,7 +124,9 @@ const AllTaskDisplay: React.FC = () => {
         ))}
 
       {tasks.length === 0 ? (
-        <p className="text-center text-gray-500 mt-2">No tasks available</p>
+        <div className="flex items-center justify-center w-full h-full">
+          <p className="text-center text-gray-500 italic">No tasks available</p>
+        </div>
       ) : (
         // tas display container
         <div className="flex flex-col gap-3 overflow-auto h-full pr-2 pt-1 md:pt-7 pb-1 md:pb-7">
@@ -132,7 +168,10 @@ const AllTaskDisplay: React.FC = () => {
                       <Button className="flex-1 px-0 py-1 text-xs md:text-sm bg-blue-600 text-white rounded hover:bg-blue-800 cursor-pointer text-center">
                         Edit
                       </Button>
-                      <Button className="flex-1 px-0 py-1 text-xs md:text-sm bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer text-center">
+                      <Button
+                        onClick={() => handleComplete(task)}
+                        className="flex-1 px-0 py-1 text-xs md:text-sm bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer text-center"
+                      >
                         Complete
                       </Button>
                       <Button
@@ -150,7 +189,9 @@ const AllTaskDisplay: React.FC = () => {
         </div>
       )}
 
+      {/* popups */}
       {infoMessage && <InfoPopup message={infoMessage} />}
+      {errorMessage && <ErrorPopup message={errorMessage} />}
     </div>
   );
 };

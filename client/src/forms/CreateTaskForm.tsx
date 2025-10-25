@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -19,8 +18,6 @@ const CreateTaskForm: React.FC = () => {
 
   const [error, setError] = useState<string[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   // handle title on change
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
