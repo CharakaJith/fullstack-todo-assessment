@@ -1,7 +1,15 @@
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
-  return <h1 className="text-4xl">Hello World!</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
