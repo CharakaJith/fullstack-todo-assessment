@@ -76,8 +76,8 @@ const AllTaskDisplay: React.FC = () => {
 
       const response = await api.put('/api/v1/task', taskData);
       if (response.data.success) {
-        // update task in state
-        setTasks((prev) => prev.map((t) => (t.id === task.id ? { ...t, isCompleted: true } : t)));
+        // remove completed task
+        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id));
 
         openInfoPopup(TASK.COMPLETED);
       }

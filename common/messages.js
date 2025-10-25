@@ -6,9 +6,9 @@ module.exports = {
 
   // database initialization
   DATABASE: {
-    SYNC: {
-      SUCCESS: 'Database synced successfully.',
-      FAILED: (error) => `Failed to sync database: ${error.message}`,
+    CONNECTION: {
+      SUCCESS: 'Connection has been established successfully.',
+      FAILED: (error) => `Unable to connect to the database: ${error.message}`,
     },
   },
 

@@ -10,6 +10,7 @@ const taskRepo = {
       return await models.Task.findAll({
         where: {
           isArchived: false,
+          isCompleted: false,
         },
         order: [['createdAt', 'DESC']],
       });

@@ -21,6 +21,7 @@ module.exports = {
 
     SERVER_ERROR: 500,
     BAD_GATEWAY: 502,
+    SURVICE_UNAVAILABLE: 503,
     TIME_OUT: 504,
   }),
 
