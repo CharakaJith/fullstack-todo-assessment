@@ -6,6 +6,8 @@ export const VALIDATE: { [key: string]: string } = {
 // task action messages
 export const TASK: { [key: string]: string } = {
   FETCH_FAILED: 'Failed to fetch tasks',
+  UPDATED: 'Task updated successfully',
+  UPDATE_FAILED: 'Failed to update the task',
   COMPLETED: 'Task marked as completed',
   COMPLETE_FAILED: 'Failed to mark the task as complete',
   DELETE_FAILED: 'Failed to delete the task',
