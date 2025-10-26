@@ -1,96 +1,94 @@
 const express = require('express');
-const app = express();
 
-// middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// mock dependencies
+jest.mock('../../../repos/v1/task.repo', () => ({
+  getAllActive: jest.fn(),
+  getById: jest.fn(),
+  insert: jest.fn(),
+  update: jest.fn(),
+}));
 
-// mock controller
-jest.mock('../../controllers/v1/task.controller', () => {
-  const mockTaskController = {
-    getAll: jest.fn((req, res) => {
-      res.status(200).json({
-        success: true,
-        response: {
-          status: 200,
-          data: { tasks: [] },
-        },
-      });
-    }),
+// mock field validator
+jest.mock('../../../util/fieldValidator', () => ({
+  validate_string: jest.fn(),
+  validate_number: jest.fn(),
+  validate_boolean: jest.fn(),
+}));
 
-    create: jest.fn((req, res) => {
-      res.status(201).json({
-        success: true,
-        response: {
-          status: 201,
-          data: {
-            task: {
-              id: 1,
-              ...req.body,
-              userId: 1,
-            },
-          },
-        },
-      });
-    }),
+// mock logger
+jest.mock('../../../middleware/log/logger', () => jest.fn());
 
-    update: jest.fn((req, res) => {
-      res.status(200).json({
-        success: true,
-        response: {
-          status: 200,
-          data: {
-            task: {
-              id: req.body.id,
-              ...req.body,
-            },
-          },
-        },
-      });
-    }),
-
-    delete: jest.fn((req, res) => {
-      res.status(204).json({
-        success: true,
-        response: {
-          status: 204,
-          data: '',
-        },
-      });
-    }),
-  };
-
-  return mockTaskController;
-});
-
-// require controller
-const taskController = require('../../controllers/v1/task.controller');
-
-// define routes
-const router = express.Router();
-
-router.get('/', taskController.getAll);
-router.post('/', taskController.create);
-router.put('/', taskController.update);
-router.delete('/:id', taskController.delete);
-
-app.use('/api/v1/task', router);
-
-// error handling middleware
-app.use((error, req, res, next) => {
-  res.status(error.statusCode || 500).json({
-    success: false,
-    message: error.message,
-    ...(process.env.NODE_ENV === 'test' && { stack: error.stack }),
+// mock custom error
+jest.mock('../../../util/customError', () => {
+  return jest.fn().mockImplementation((message, statusCode) => {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    error.isOperational = true;
+    return error;
   });
 });
 
-app._router.stack.forEach((middleware) => {
-  if (middleware.route) {
-    console.log(`${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
-  } else if (middleware.name === 'router' && middleware.regexp) {
-    console.log('Router mounted for /api/v1/task');
-  }
+// mock database models and config
+jest.mock('../../../models', () => ({}));
+jest.mock(
+  '../../../config/config.json',
+  () => ({
+    development: {
+      username: 'test',
+      password: 'test',
+      database: 'test_db',
+      host: 'localhost',
+      dialect: 'mysql',
+    },
+  }),
+  { virtual: true },
+);
+
+// import controller
+const taskController = require('../../../controllers/v1/task.controller');
+
+const app = express();
+
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// routes
+app.get('/api/v1/task', (req, res, next) => {
+  taskController.getAll(req, res, next);
+});
+
+app.post('/api/v1/task', (req, res, next) => {
+  taskController.create(req, res, next);
+});
+
+app.put('/api/v1/task', (req, res, next) => {
+  taskController.update(req, res, next);
+});
+
+app.delete('/api/v1/task/:id', (req, res, next) => {
+  taskController.delete(req, res, next);
+});
+
+// error handling middleware
+app.use((error, req, res, next) => {
+  const statusCode = error.statusCode || 500;
+  res.status(statusCode).json({
+    success: false,
+    message: error.message,
+    ...(process.env.NODE_ENV === 'test' && {
+      error: error.message,
+      statusCode,
+    }),
+  });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
+  });
 });
 
 module.exports = { app, taskController };
