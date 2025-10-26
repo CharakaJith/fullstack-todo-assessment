@@ -1,14 +1,21 @@
 const taskService = require('../../../../services/v1/task.service');
-const taskRepo = require('../../../../repos/v1/task.repo');
-const fieldValidator = require('../../../../util/fieldValidator');
-const logger = require('../../../../middleware/log/logger');
-
-const { STATUS_CODE } = require('../../../../constants/app.constants');
-const { LOG_TYPE } = require('../../../../constants/logger.constants');
 
 // mock dependencies
 jest.mock('../../../../repos/v1/task.repo');
+jest.mock('../../../../models', () => ({}));
+jest.mock('../../../../config/config', () => ({
+  development: {},
+  test: {},
+  production: {},
+}));
 jest.mock('../../../../middleware/log/logger');
+
+// mock fieldValidator
+jest.mock('../../../../util/fieldValidator', () => ({
+  validate_string: jest.fn(),
+  validate_number: jest.fn(),
+  validate_boolean: jest.fn(),
+}));
 
 // mock CustomError
 jest.mock('../../../../util/customError', () => {
@@ -25,10 +32,12 @@ jest.mock('../../../../util/customError', () => {
   return MockCustomError;
 });
 
-// mock fieldValidator
-fieldValidator.validate_string = jest.fn();
-fieldValidator.validate_number = jest.fn();
-fieldValidator.validate_boolean = jest.fn();
+// require mocked dependencies
+const taskRepo = require('../../../../repos/v1/task.repo');
+const logger = require('../../../../middleware/log/logger');
+const fieldValidator = require('../../../../util/fieldValidator');
+const { STATUS_CODE } = require('../../../../constants/app.constants');
+const { LOG_TYPE } = require('../../../../constants/logger.constants');
 
 describe('taskService', () => {
   let mockTaskData;

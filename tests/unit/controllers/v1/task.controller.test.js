@@ -1,8 +1,13 @@
 const taskController = require('../../../../controllers/v1/task.controller');
-const taskService = require('../../../../services/v1/task.service');
 
-// mock task service
+// mock task service and models
 jest.mock('../../../../services/v1/task.service');
+jest.mock('../../../../models', () => ({}));
+jest.mock('../../../../config/config', () => ({
+  development: {},
+  test: {},
+  production: {},
+}));
 
 // mock CustomError
 jest.mock('../../../../util/customError', () => {
@@ -16,6 +21,7 @@ jest.mock('../../../../util/customError', () => {
 });
 
 // require mocked CustomError
+const taskService = require('../../../../services/v1/task.service');
 const CustomError = require('../../../../util/customError');
 
 describe('Task Controller', () => {
