@@ -1,7 +1,6 @@
 const models = require('../../../../models');
 const taskRepo = require('../../../../repos/v1/task.repo');
 const CustomError = require('../../../../util/customError');
-const { STATUS_CODE } = require('../../../../constants/app.constants');
 const { ENTITY } = require('../../../../constants/entity.constants');
 const { REPO } = require('../../../../common/messages');
 
@@ -42,7 +41,7 @@ describe('Task Repo', () => {
 
       const result = await taskRepo.getAllActive();
       expect(findAllMock).toHaveBeenCalledWith({
-        where: { isArchived: false },
+        where: { isArchived: false, isCompleted: false },
         order: [['createdAt', 'DESC']],
       });
       expect(result).toEqual([mockTaskData]);

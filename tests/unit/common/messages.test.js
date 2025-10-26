@@ -10,8 +10,8 @@ describe('Messages', () => {
   it('should return correct DATABASE messages', () => {
     const error = new Error('DB error');
 
-    expect(MESSAGES.DATABASE.SYNC.SUCCESS).toBe('Database synced successfully.');
-    expect(MESSAGES.DATABASE.SYNC.FAILED(error)).toBe('Failed to sync database: DB error');
+    expect(MESSAGES.DATABASE.CONNECTION.SUCCESS).toBe('Connection has been established successfully.');
+    expect(MESSAGES.DATABASE.CONNECTION.FAILED(error)).toBe('Unable to connect to the database: DB error');
   });
 
   // field validation

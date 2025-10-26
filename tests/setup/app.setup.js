@@ -6,11 +6,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import your routes
 try {
-  const taskRoutes = require('../../../src/routes/v1/task.routes');
+  const taskRoutes = require('../../routes/v1/task.routes');
   app.use('/api/v1/task', taskRoutes);
-  console.log('✅ Routes loaded successfully');
+  console.log('Routes loaded successfully');
 } catch (error) {
-  console.log('❌ Failed to load routes:', error.message);
+  console.log('Failed to load routes:', error.message);
 }
 
 // Add error handling middleware to catch and format errors
