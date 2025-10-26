@@ -103,9 +103,14 @@
    ```
 5. Access the application
    ```
-   Frontend: [Frontend Url](http://localhost:3000)
-   Backend API: [Backend API Url](http://localhost:8000/api)
+   Frontend: http://localhost:3000
+   Backend API: http://localhost:8000/api
    ```
+
+## Documentations
+
+- [Postman API documentation](https://documenter.getpostman.com/view/28014836/2sB3WmS2DK)
+- [System architecture diagram](https://lucid.app/lucidchart/1c82440a-5cd4-4ab7-8166-d963d9fe1a68/edit?viewport_loc=-1017%2C-581%2C4488%2C2113%2C0_0&invitationId=inv_6495769c-fb06-4ec1-9e79-40c87a4c2887)
 
 ### Declaration
 
