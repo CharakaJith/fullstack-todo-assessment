@@ -9,9 +9,9 @@
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:down": "npx sequelize-cli db:migrate:undo",
     "migrate:down:all": "npx sequelize-cli db:migrate:undo:all",
-    "test": "jest",
     "test:unit": "jest --config jest.unit.config.js",
-    "test:integration": "jest --config jest.integration.config.js"
+    "test:integration": "jest --config jest.integration.config.js",
+    "test:e2e": "jest --config jest.config.e2e.js"
   },
   "author": "Charaka Jith Gunasinghe",
   "license": "ISC",

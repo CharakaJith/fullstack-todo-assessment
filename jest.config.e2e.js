@@ -1,0 +1,15 @@
+module.exports = {
+  ...require('./jest.config.js'),
+  testEnvironment: 'node',
+  roots: ['<rootDir>/tests'],
+  testMatch: ['**/tests/e2e/**/*.test.js'],
+  testTimeout: 60000,
+  setupFilesAfterEnv: ['<rootDir>/tests/e2e/setup/setup.js'],
+  collectCoverageFrom: ['src/**/*.js', '!src/**/*.test.js'],
+  coverageDirectory: 'coverage/e2e',
+  verbose: true,
+  forceExit: true,
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
+};

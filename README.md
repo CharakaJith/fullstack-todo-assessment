@@ -107,6 +107,23 @@
    Backend API: http://localhost:8000/api
    ```
 
+## Running the tests
+
+### server side
+
+1. Run unit tests
+   ```
+   npm run test:unit
+   ```
+2. Run integration tests
+   ```
+   npm run test:integration
+   ```
+3. Run E2E tests
+   ```
+   npm run test:e2e
+   ```
+
 ## Documentations
 
 - [Postman API documentation](https://documenter.getpostman.com/view/28014836/2sB3WmS2DK)
