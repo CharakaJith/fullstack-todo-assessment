@@ -7,11 +7,11 @@ WORKDIR /app
 # copy root package.json and package-lock.json files
 COPY package*.json ./
 
-# install dependencies 
-RUN npm run install
+# install postgresql-client
+RUN apt-get update && apt-get install -y postgresql-client
 
-# copy root .env files
-COPY .env .env
+# install dependencies 
+RUN npm install
 
 # copy the app to the container
 COPY . .
@@ -23,5 +23,8 @@ ENV PORT=8000
 # expose the port
 EXPOSE 8000
 
-# run the app
-CMD ["npm", "start"]
+# make wait-for-db.sh executable
+RUN chmod +x wait-for-db.sh
+
+# run migrations and start the app
+CMD ["sh", "-c", "./wait-for-db.sh db && npm run migrate:up && npm run start"]

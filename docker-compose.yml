@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16
+    container_name: todo_postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${PG_USER} -d ${PG_DATABASE}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo_backend
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "./wait-for-db.sh db && npx sequelize-cli db:migrate && npm run start"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: todo_frontend
+    ports:
+      - '3000:80'
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

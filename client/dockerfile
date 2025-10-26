@@ -1,0 +1,32 @@
+# build image
+FROM node:20 AS build
+
+# set working directory
+WORKDIR /app
+
+# copy package.json and package-lock.json for caching
+COPY package*.json ./
+
+# install dependencies 
+RUN npm install
+
+# copy the app to the container
+COPY . .
+
+# build react app
+RUN npm run build
+
+# serve with nginx
+FROM nginx:alpine
+
+# copy build output
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# copy env.js to same folder
+COPY public/env.js /usr/share/nginx/html/env.js
+
+# expose port 80
+EXPOSE 80
+
+# run nginx in foreground
+CMD ["nginx", "-g", "daemon off;"]

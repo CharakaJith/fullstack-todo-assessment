@@ -1,16 +1,9 @@
-import axios from 'axios';
+import api from '@/api';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { VALIDATE, ERROR } from '@/common/messages';
-
-const apiUrl = import.meta.env.VITE_API_BASE_URL;
-
-const api = axios.create({
-  baseURL: apiUrl,
-  withCredentials: true,
-});
 
 const CreateTaskForm: React.FC = () => {
   const [title, setTitle] = useState<string>('');

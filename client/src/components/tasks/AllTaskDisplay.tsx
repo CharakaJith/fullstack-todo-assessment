@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '@/api';
 import React, { useState, useEffect } from 'react';
 import InfoPopup from '../popups/InfoPopup';
 import ErrorPopup from '../popups/ErrorPopup';
@@ -7,16 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { TASK } from '@/common/messages';
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL;
-
-const api = axios.create({
-  baseURL: apiUrl,
-  withCredentials: true,
-});
-
 const AllTaskDisplay: React.FC = () => {
   const [tasks, setTasks] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -106,8 +98,6 @@ const AllTaskDisplay: React.FC = () => {
   // get tasks
   const fetchTasks = async () => {
     try {
-      setLoading(true);
-
       const { data } = await api.get('/api/v1/task');
       const response = data;
 
@@ -118,8 +108,6 @@ const AllTaskDisplay: React.FC = () => {
       }
     } catch (error: any) {
       setError([error.message || TASK.FETCH_FAILED]);
-    } finally {
-      setLoading(false);
     }
   };
 
